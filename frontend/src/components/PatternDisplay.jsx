@@ -13,7 +13,13 @@ function PatternDisplay({ outputData }) {
     if (!item) return null;
     
     if (typeof item === 'object') {
-      const details = item.instructions || item.stitches || item.instruction || item.text || JSON.stringify(item);
+      const details = (
+  item.instructions ||
+  item.stitches ||
+  item.instruction ||
+  item.text ||
+  JSON.stringify(item)
+);
       const stepNum = item.round_number || item.round || '';
       const sideStitches = item.stitches_per_side;
       
