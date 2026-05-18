@@ -48,15 +48,23 @@ function PatternForm({ onFormSubmit, isLoading }) {
       </div>
 
       <div className="form-group">
-        <label>Yarn Weight / Size Allocation</label>
-        <input 
-          type="text" 
-          value={yarnSize} 
-          onChange={(e) => setYarnSize(e.target.value)} 
-          placeholder="e.g., DK, worsted, 4 ply"
-          required 
-        />
-      </div>
+  <label>Yarn Weight / Size Allocation</label>
+
+  <select
+    value={yarnSize}
+    onChange={(e) => setYarnSize(e.target.value)}
+    required
+  >
+    <option value="lace">Lace</option>
+    <option value="fingering">Fingering</option>
+    <option value="sport">Sport</option>
+    <option value="dk">DK</option>
+    <option value="worsted">Worsted</option>
+    <option value="aran">Aran</option>
+    <option value="bulky">Bulky</option>
+    <option value="super bulky">Super Bulky</option>
+  </select>
+</div>
 
       <div className="form-group">
         <label>Crochet Hook Sizing Specifications</label>
