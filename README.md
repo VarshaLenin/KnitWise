@@ -1,32 +1,244 @@
-# KnitWise AI: Reverse-Engineering Multi-Geometry Textile Architecture with Gemma 4
+# KnitWise AI
 
-**Track Focus:** Digital Equity & Inclusivity / Ollama Special Technology Track
-**Core Model:** `gemma-4-26b-a4b-it` (Local Deploy / Production Testing)
-
-## Project Overview
-KnitWise AI is a specialized, computer-vision-driven pattern parsing platform that translates visual textile designs into mathematically synchronized, structurally viable crochet notation. 
-
-While general-purpose LLMs are excellent at standard textual tasks, they natively fail at maintaining spatial, multi-step geometric constraints over sequential lines of pattern generation. They frequently hallucinate impossible stitch increments, mix up stitch aspect ratios, or cause severe structural warping. KnitWise AI solves this by introducing robust geometric boundaries and prompt-driven shorthand parsing directly over the Gemma 4 26B model layer, unlocking flawless pattern replication for three distinct structural layouts:
-1. **Granny Squares (Exponential Flat Grids):** Scaling corner increases perfectly without warping.
-2. **Scarves (Static Linear Rows):** Handling shifting chevron angles and keeping edge margins straight.
-3. **Beanies (Cylindrical Crowns & Fixed Bodies):** Transitioning smoothly from flat circles to straight vertical walls.
+AI powered crochet pattern generation from reference images using Gemma 4 multimodal understanding.
 
 ---
 
-## 🛠️ System Architecture & Engineering Breakthroughs
+## Overview
 
-KnitWise AI bypasses classic model reasoning limitations through specific logical guardrails defined in the parsing layer across all major textile shapes:
+KnitWise AI is a crochet pattern generation platform designed to help beginners and crochet enthusiasts recreate designs from inspiration images.
 
-### 1. Mandatory Base Multiple Law (Universal Stitch Type Alignment)
-Standard vision pipelines frequently misclassify stitch heights, pairing a tall stitch (like Double Crochet) with a low starting loop count (like 6 in a circular beanie crown), which forces the physical fabric to warp into a sharp cone. KnitWise implements cross-validation rules that bind visual loop aspect ratios to historical craft baselines (e.g., mandating a starting base of 11-12 stitches for a flat `dc` circle layout, vs 8-10 for `hdc`, vs 6-8 for `sc`).
+Users can upload a reference image of a crochet piece, select the crochet type, yarn size, hook size, and generation mode, and receive a structured crochet pattern with organized rounds, stitch counts, construction notes, and a printable PDF version.
 
-### 2. Multi-Geometry Boundary & Cutoff Enforcements
-When generating structural textile patterns, language models struggle with boundaries where mathematical formulas shift. KnitWise enforces explicit structural constraints based on targeted geometry profiles:
-* **The Beanie Cutoff:** Instantly terminates the model’s permission to utilize increase keys once a calibrated crown diameter total is met, cleanly dropping the pattern matrix into un-warped vertical rows.
-* **The Granny Square Progression:** Mandates a strict corner-contribution formula, forcing the stitches per side on Round(n) to always scale perfectly in proportion to the corner stitch cluster to keep the square completely flat.
-* **The Scarf Margin Lock:** Sets strict flat-row linear logic that bans continuous rounds and forces a static, identical stitch count across every single subsequent row to maintain straight, un-warped fabric edges.
+The system currently supports:
+- Beanies
+- Granny Squares
+- Scarves
 
-### 3. Consolidated Range Shorthand (Eliminating Multiplication Loop Failures)
-Forcing a model to iterate long, repetitive arrays row-by-row introduces a massive surface area for cumulative arithmetic drift and text-instruction repetition errors. KnitWise solves this by directing the engine to leverage generalized shorthand ranges (e.g., batching uniform repeating segments inside tight, clean string matrices like "Rounds 3-10: Continue increasing uniformly..."). This completely prevents the model from scrambling its multiplication tables, keeping the output 100% mathematically accurate across expansive designs while producing clean, professional notation for human crafters.
+KnitWise AI focuses on generating beginner friendly, structured, and mathematically consistent crochet instructions instead of generic AI generated text.
 
 ---
+
+## Problem Statement
+
+Many beginners discover crochet inspiration through platforms like Pinterest, Instagram, Etsy, or handmade marketplaces, but struggle to find the actual pattern used to create the design.
+
+Existing AI tools often generate inconsistent or structurally incorrect crochet instructions, which can result in warped shapes, incorrect stitch counts, or unusable patterns.
+
+KnitWise AI was built to bridge that gap by turning visual crochet inspiration into readable and structured crochet guidance.
+
+---
+
+## Features
+
+- Upload crochet reference images
+- AI powered crochet structure analysis using Gemma 4
+- Supports beanies, granny squares, and scarves
+- Structured round by round pattern generation
+- Beginner friendly formatting
+- Strict Replication and Creative Adaptive modes
+- Stitch count consistency handling
+- Low image quality approximation warnings
+- Printable PDF export
+- Clean JSON response inspection
+
+---
+
+## Tech Stack
+
+### Frontend
+- React
+- Vite
+- Plain CSS
+
+### Backend
+- FastAPI
+- Pydantic
+- ReportLab
+
+### AI & Processing
+- Gemma 4 via Gemini API
+- Multimodal image analysis
+- Structured response schema validation
+
+---
+
+## System Architecture
+
+```text
+User Uploads Crochet Image
+            ↓
+Frontend Sends Request to FastAPI Backend
+            ↓
+Gemma 4 Multimodal Analysis via Gemini API
+            ↓
+Structured Validation using Pydantic Schemas
+            ↓
+Pattern Formatting & Geometry Handling
+            ↓
+PDF Generation using ReportLab
+            ↓
+Structured Crochet Pattern Returned to User
+```
+
+---
+
+## How Gemma 4 Was Used
+
+KnitWise AI uses the `gemma-4-26b-a4b-it` model through the Gemini API for multimodal image understanding and crochet pattern generation.
+
+The model analyzes:
+- crochet geometry
+- stitch layouts
+- structural shapes
+- texture density
+- pattern flow
+
+Custom prompt engineering and structured schema validation were implemented to improve:
+- stitch consistency
+- shape accuracy
+- beginner readability
+- structured formatting
+
+Different generation rules were designed for:
+- circular beanies
+- granny squares
+- row based scarves
+
+---
+
+## Project Structure
+
+```text
+crochet-pattern-generator/
+│
+├── backend/
+│   ├── main.py
+│   ├── services.py
+│   ├── pdf_generator.py
+│   ├── requirements.txt
+│   └── .env
+│
+└── frontend/
+    ├── index.html
+    ├── package.json
+    ├── src/
+    │   ├── main.jsx
+    │   ├── App.jsx
+    │   ├── App.css
+    │   └── components/
+    │       ├── PatternForm.jsx
+    │       └── PatternDisplay.jsx
+    └── vite.config.js
+```
+
+---
+
+## Installation
+
+### Backend Setup
+
+```bash
+cd backend
+pip install -r requirements.txt
+```
+
+Create a `.env` file:
+
+```env
+GEMINI_API_KEY=your_api_key_here
+```
+
+Run the backend:
+
+```bash
+uvicorn main:app --reload
+```
+
+---
+
+### Frontend Setup
+
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+---
+
+## Usage
+
+1. Upload a crochet reference image
+2. Select:
+   - Crochet type
+   - Yarn size
+   - Hook size
+   - Generation mode
+3. Generate the crochet pattern
+4. View:
+   - Structured rounds
+   - Stitch counts
+   - Notes
+   - PDF export
+
+---
+
+## Example Output
+
+### Supported Outputs Include
+
+- Setup phases
+- Round based instructions
+- Stitch totals
+- Geometry aware increases
+- Construction notes
+- Color change guidance
+- PDF blueprint generation
+
+---
+
+## Challenges Faced
+
+One of the biggest challenges was maintaining structural consistency during generation.
+
+Crochet patterns follow strict construction logic depending on the geometry of the piece. Different handling was required for:
+- circular beanies
+- granny squares
+- row based scarves
+
+Additional validation logic and prompt constraints were introduced to reduce:
+- inconsistent stitch counts
+- warped geometry
+- incorrect increases
+- structurally invalid outputs
+
+---
+
+## Future Improvements
+
+- Additional crochet structure support
+- Stitch visualization overlays
+- Yarn estimation system
+- Crochet symbol diagram generation
+- Interactive tutorials for beginners
+- Multi language crochet terminology support
+
+---
+
+## Demo Video
+
+https://youtu.be/CotVI4cWcf4
+
+---
+
+
+## Built For
+
+The Gemma 4 Good Hackathon 2026 by Google DeepMind.
+
+---
+
+## Author
+
+Varsha L.
