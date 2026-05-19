@@ -115,7 +115,7 @@ CRITICAL ALGEBRAIC & STITCH LOGIC:
     try:
         # Requesting content using strict Object Schema enforcement via Pydantic
         response = client.models.generate_content(
-            model='gemini-2.5-flash',
+            model='gemma-4-26b-a4b-it',
             contents=[image_part, prompt],
             config=types.GenerateContentConfig(
                 system_instruction=SYSTEM_INSTRUCTION,
